@@ -2,17 +2,18 @@ library(nycflights13)
 library(tidyverse)
 library(plyr)
 
-M <- flights |>
+m <- flights |>
   filter(dest == "IAH") |> 
   group_by(year, month, day) |> 
   summarize(
     arr_delay = mean(arr_delay, na.rm = TRUE)
   )
-batters |> 
-  filter(n > 100) |> 
-  ggplot(aes(x = n, y = performance)) +
-  geom_point(alpha = 1 / 10) + 
-  geom_smooth(se = FALSE)
+
+p <- m |> ggplot(aes(x = 1:nrow(m), y = arr_delay)) +
+  #p <- m |> ggplot(aes(x = month, y = arr_delay)) +
+  geom_line() + 
+  theme_minimal()
+print(p)
 
 #arrange
 m <- flights |> 
